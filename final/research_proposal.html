@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>High-Frequency Sentiment Proposal</title>
+</head>
+<body>
+  <h2>Research Proposal – High-Frequency Sentiment from Order Flow</h2>
+  <ul>
+    <li><strong>Core idea: trade-taker side as sentiment</strong>
+      <ul>
+        <li>Define sentiment from the aggressor side of the trade:
+          <ul>
+            <li>Buyer-initiated trades → positive sentiment (willingness to pay the spread to acquire the asset).</li>
+            <li>Seller-initiated trades → negative sentiment (willingness to pay the spread to offload the asset).</li>
+          </ul>
+        </li>
+        <li>Economic intuition: aggressors reveal stronger beliefs or urgency than passive liquidity providers, so their direction is a natural proxy for short-horizon sentiment.</li>
+      </ul>
+    </li>
+    <li><strong>Volume-weighted sentiment to capture economic importance</strong>
+      <ul>
+        <li>Construct a volume-weighted order-flow measure, where each trade’s sign (buy/sell) is multiplied by its traded volume.</li>
+        <li>Economic intuition: larger aggressive trades are more likely to come from informed or high-conviction traders, so they should move prices more than small, possibly liquidity-motivated trades.</li>
+      </ul>
+    </li>
+    <li><strong>Normalization by recent traded volume (relative pressure)</strong>
+      <ul>
+        <li>Normalize volume-weighted order flow by recent total traded volume (e.g., past X minutes) to obtain relative buy/sell pressure.</li>
+        <li>Economic intuition: the same absolute buy volume is more informative in a thin, illiquid period than in a very active one; normalization controls for baseline liquidity and time-of-day effects.</li>
+      </ul>
+    </li>
+    <li><strong>Interpreting high relative buy/sell volume as pressure</strong>
+      <ul>
+        <li>High relative buy volume (large buyer-initiated volume relative to recent activity) = strong buying pressure, suggesting upward pressure on prices.</li>
+        <li>High relative sell volume = strong selling pressure, suggesting downward pressure.</li>
+        <li>Economic intuition: persistent net demand on one side of the book signals imbalanced beliefs and tends to push the price toward that side.</li>
+      </ul>
+    </li>
+    <li><strong>Partition by recent returns and use momentum as conviction</strong>
+      <ul>
+        <li>Split observations by recent return regime (e.g., positive vs. negative short-term returns) and interact with relative buy/sell pressure.</li>
+        <li>When buy pressure aligns with recent positive returns, interpret as trend-following, high-conviction continuation of existing information.</li>
+        <li>When buy pressure follows recent negative returns, interpret as contrarian/value trades, signaling conviction that prices have overreacted.</li>
+        <li>Economic intuition: the combination of order-flow direction, size, and recent price path allows us to distinguish mere noise from high-conviction information trading, and to test whether such trades predict future returns and volatility.</li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>
