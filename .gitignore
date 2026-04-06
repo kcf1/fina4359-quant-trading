@@ -1,5 +1,6 @@
 # Project-specific
 final/*.txt
+chenlin04_student_login.txt
 *.parquet
 
 # Byte-compiled / optimized / DLL files
