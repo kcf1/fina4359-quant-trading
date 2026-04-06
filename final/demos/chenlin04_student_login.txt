@@ -1,5 +1,0 @@
-{
-    'host': 'chenlin04.fbe.hku.hk',
-    'username': 'fina4359_students_202603', 
-    'password': 'fina4359isfun!'
-}
