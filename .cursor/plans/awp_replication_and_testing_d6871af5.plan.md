@@ -1,25 +1,28 @@
 ---
 name: AWP replication and testing
-overview: Replicate your teammate’s All Weather setup with a core 5-asset baseline, then run structured performance, attribution, factor, and macro-regime tests to validate or challenge thesis claims.
+overview: Replicate your teammate’s All Weather setup with a core 5-asset baseline, then run structured performance, attribution, factor, and macro-regime tests to validate or challenge thesis claims. All implementation lives in a new notebook created from this plan; existing scratch work stays in ben_awp.ipynb.
 todos:
+  - id: create-awp-notebook
+    content: Create new deliverable notebook under final/ben/ (e.g. awp_replication_analysis.ipynb) with markdown sections matching this plan; use ben_awp.ipynb only for prior experiments if needed.
+    status: completed
   - id: replicate-core-awp
     content: Implement and validate fixed-weight and inverse-vol core 5-asset AWP variants (static + dynamic).
-    status: pending
+    status: completed
   - id: build-performance-panel
     content: Create core performance tables and rolling diagnostics for each strategy and benchmark.
-    status: pending
+    status: completed
   - id: run-attribution-benchmarks
-    content: Compute PnL/risk attribution and benchmark comparisons (60/40 + FF5 + recommended alternatives).
-    status: pending
+    content: Compute PnL/risk attribution and benchmark comparisons (60/40 and FF5 only).
+    status: completed
   - id: test-diversification-claims
     content: Run asset/factor concentration and hedge-effectiveness tests across regimes.
-    status: pending
+    status: completed
   - id: macro-regime-regressions
     content: Estimate thesis-indicator and augmented macro regressions with rolling windows.
-    status: pending
+    status: completed
   - id: falsify-thesis-weaknesses
     content: Execute robustness/falsification checks and summarize where thesis claims hold or fail.
-    status: pending
+    status: completed
 isProject: false
 ---
 
@@ -29,10 +32,11 @@ isProject: false
 
 - Replication baseline: core 5-asset All Weather universe only (`SPY`, `TLT`, `IEF`, `GLD`, `DBC`).
 - Macro model: use exact thesis indicator set first, then add extra variables to test whether the thesis omitted important drivers.
-- Primary working notebook: [F:/Document/GitHub/fina4359-quant-trading/final/ben/ben_awp.ipynb](F:/Document/GitHub/fina4359-quant-trading/final/ben/ben_awp.ipynb)
+- **Deliverable**: a **new** notebook in `final/ben/` (suggested name: `awp_replication_analysis.ipynb`) that follows the section order in this plan end-to-end.
+- **Scratch / prior risk tests**: [ben_awp.ipynb](F:/Document/GitHub/fina4359-quant-trading/final/ben/ben_awp.ipynb) is optional reference only; do not treat it as the final submission vehicle unless you merge results back deliberately.
 - Reference methodology: [F:/Document/GitHub/fina4359-quant-trading/final/ben/andy_summary.md](F:/Document/GitHub/fina4359-quant-trading/final/ben/andy_summary.md)
 
-## Replication Blueprint (match teammate approach, no code changes yet)
+## Replication Blueprint (match teammate approach)
 
 - **Data handling**
   - Use adjusted close total-return prices.
@@ -61,19 +65,15 @@ isProject: false
 - **Risk attribution**
   - Volatility contribution using covariance decomposition (marginal + component risk).
   - Tail risk contribution (Expected Shortfall contribution) to assess crisis protection claims.
-- **Required benchmarks**
-  - `60/40`: start with `60% SPY + 40% (IEF/TLT blend)` for duration-balanced bond sleeve.
-  - `FF5`: time-series regression of portfolio excess returns on `MKT, SMB, HML, RMW, CMA` (add `MOM` as FF5+MOM robustness).
-- **Recommended additional benchmark studies**
-  - Equal-weight 5-asset portfolio (naive diversification baseline).
-  - Risk parity without commodities or without bonds (stress benchmark).
-  - 12M trend-following overlay benchmark (common alternative diversification claim).
+- **Benchmarks**
+  - `60/40`: `60% SPY + 40% (IEF/TLT blend)` for duration-balanced bond sleeve.
+  - `FF5`: time-series regression of portfolio excess returns on `MKT, SMB, HML, RMW, CMA`.
 
 ## Diversification/Protection Claim Tests
 
 - Rolling correlation matrix and average pairwise correlation.
 - Concentration tests: Herfindahl of weights and PCA variance share of first component.
-- Factor concentration: rolling FF5(+MOM) betas and rolling R-squared.
+- Factor concentration: rolling FF5 betas and rolling R-squared.
 - Drawdown co-movement: which assets actually hedge in left-tail months.
 - Conclusion rule: “diversified” only if both asset-level and factor-level concentration remain low across regimes.
 
@@ -112,6 +112,8 @@ flowchart TD
 
 ## Output Structure
 
-- Keep implementation in [F:/Document/GitHub/fina4359-quant-trading/final/ben/ben_awp.ipynb](F:/Document/GitHub/fina4359-quant-trading/final/ben/ben_awp.ipynb) with section headers mirroring this plan.
-- Add concise result narrative in a companion markdown after tests (optional, similar format to teammate summary).
+- **Create** the deliverable notebook at [F:/Document/GitHub/fina4359-quant-trading/final/ben/awp_replication_analysis.ipynb](F:/Document/GitHub/fina4359-quant-trading/final/ben/awp_replication_analysis.ipynb) (filename may be adjusted, but it must be a new file dedicated to this plan).
+- Structure it with markdown headings that mirror the plan: Replication, Performance, PnL/Risk + Benchmarks (60/40, FF5), Diversification tests, Macro regressions, Thesis-falsification checks, Short conclusion.
+- Reuse data paths, imports, and any reusable snippets from [ben_awp.ipynb](F:/Document/GitHub/fina4359-quant-trading/final/ben/ben_awp.ipynb) by copy or refactor; avoid leaving the final analysis only in the scratch notebook.
+- Optional: add a short results summary markdown (same folder) after the notebook is complete, in the style of [andy_summary.md](F:/Document/GitHub/fina4359-quant-trading/final/ben/andy_summary.md), only if the course asks for a separate write-up.
 
